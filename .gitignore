@@ -1,0 +1,16 @@
+# Python-generated files
+__pycache__/
+*.py[oc]
+build/
+dist/
+wheels/
+*.egg-info
+
+# Virtual environments
+.venv
+demo_out/
+final_dataset/
+FOD Runway Dataset.v2i.yolov11/
+foreign object debris.v1i.yolov11/
+merged_fod_dataset/
+Runway FOD Detector.v1i.yolov11/

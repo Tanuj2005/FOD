@@ -1,0 +1,2 @@
+class_id,class_name,total,train,valid,test,pct_small,median_area_px,median_min_side_px,median_aspect
+0,FOD,5983,5002,643,338,28.8,6789.0,65.5,1.18

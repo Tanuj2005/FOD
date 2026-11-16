@@ -1,0 +1,4 @@
+ds2_split,ds2_images,ds2_imgs_with_ds1_match,ds2_imgs_with_ds1_match_pct,ds2_exact_matches_d0,ds2_median_dist_to_ds1,ds1_train_imgs_matching_this_split,ds1_train_imgs_matching_pct
+train,5004,1058,21.14,907,86.0,2036,22.49
+valid,641,263,41.03,245,83.0,615,6.79
+test,338,133,39.35,129,84.0,343,3.79

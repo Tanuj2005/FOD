@@ -1,0 +1,5 @@
+{
+  "conf": 0.25,
+  "how": "fixed (CONF in config)",
+  "weights": "C:\\FOD\\runs\\detect\\runs\\yolo11_plus_aug\\weights\\best.pt"
+}

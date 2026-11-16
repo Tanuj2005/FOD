@@ -1,0 +1,83 @@
+# Dataset comparison
+
+| metric | ds1_runway_fod_detector | ds2_fod_runway | ds3_foreign_object_debris |
+|---|---|---|---|
+| total_images | 10352 | 5983 | 4307 |
+| train_images | 9054 | 5004 | 3013 |
+| valid_images | 881 | 641 | 862 |
+| test_images | 417 | 338 | 432 |
+| total_instances | 10145 | 5983 | 4274 |
+| classes | 2 | 1 | 2 |
+| most_common_resolution | 640x640 | 640x640 | 640x640 |
+| unique_resolutions | 1 | 1 | 1 |
+| image_modes | RGB | RGB | RGB |
+| train_background_pct | 2.44 | 0.08 | 0.76 |
+| valid_background_pct | 1.59 | 0.0 | 1.51 |
+| test_background_pct | 0.96 | 0.0 | 1.16 |
+| boxes_per_image_mean | 0.98 | 1.0 | 0.99 |
+| imbalance_ratio_max_over_min | 306.4 | 1.0 | 236.4 |
+| n_rare_classes | 1 | 0 | 1 |
+| classes_missing_in_valid | Runway-FOD-Detector |  | Hole |
+| classes_missing_in_test | Runway-FOD-Detector |  |  |
+| pct_small_objects | 0.7 | 28.8 | 3.8 |
+| pct_medium_objects | 56.5 | 26.8 | 63.7 |
+| pct_large_objects | 42.7 | 44.4 | 32.6 |
+| median_box_area_pct_of_image | 1.8461 | 1.6575 | 1.21 |
+| median_box_min_side_px | 71.0 | 65.5 | 54.5 |
+| pct_boxes_min_side_lt_8px | 0.1 | 0.1 | 0.0 |
+| pct_boxes_min_side_lt_16px | 0.4 | 9.2 | 0.4 |
+| issue_corrupt_image | 0 | 0 | 0 |
+| issue_missing_label_file | 0 | 0 | 0 |
+| issue_malformed_line | 0 | 0 | 0 |
+| issue_class_id_out_of_range | 0 | 0 | 0 |
+| issue_non_positive_size | 0 | 0 | 0 |
+| issue_out_of_bounds | 0 | 0 | 0 |
+| issue_duplicate_box | 0 | 0 | 0 |
+| orphan_label_files | 0 | 0 | 0 |
+| files_that_are_augmented_copies | 8867 | 3563 | 2830 |
+| base_names_spanning_multiple_splits | 899 | 168 | 0 |
+| valid_near_dup_of_train_pct | 76.39 | 12.01 | 9.98 |
+| test_near_dup_of_train_pct | 78.18 | 16.27 | 9.49 |
+| train_images_with_near_dup_in_train_pct | 27.51 | 22.84 | 89.58 |
+| brightness_mean | 146.7 | 169.7 | 146.7 |
+| brightness_std_across_images | 19.4 | 42.9 | 9.5 |
+| pct_dark_images_lt_60 | 0.0 | 0.0 | 0.0 |
+| pct_bright_images_gt_190 | 1.3 | 28.7 | 0.3 |
+| pct_grayscale_images | 52.0 | 23.7 | 51.7 |
+| pct_blurry_lapvar_lt_30 | 0.0 | 0.0 | 0.0 |
+
+## Suggested actions per dataset
+
+### ds1_runway_fod_detector
+- 8867 files look like augmented copies: dedupe by base_name or re-download without augmentation.
+- Same source image appears in multiple splits (leakage): re-split by base_name.
+- 76.39% of valid images are near-duplicates of train: re-split by scene/sequence or remove them from valid.
+- 78.18% of test images are near-duplicates of train: re-split by scene/sequence or remove them from test.
+- Many near-duplicate images inside train (likely video frames): consider thinning them.
+- Train background-only images = 2.44%: add hard negatives up to ~5-10%.
+- Rare classes (<50 instances): Runway-FOD-Detector. Merge, oversample, or document.
+- Classes absent from test: Runway-FOD-Detector. Stratify the split.
+- Classes absent from valid: Runway-FOD-Detector. Stratify the split.
+- 52.0% of images are grayscale: colour cues unavailable.
+- Almost no dark/very bright images: night/low-light generalisation cannot be evaluated with this data alone.
+
+### ds2_fod_runway
+- 3563 files look like augmented copies: dedupe by base_name or re-download without augmentation.
+- Same source image appears in multiple splits (leakage): re-split by base_name.
+- 12.01% of valid images are near-duplicates of train: re-split by scene/sequence or remove them from valid.
+- 16.27% of test images are near-duplicates of train: re-split by scene/sequence or remove them from test.
+- Many near-duplicate images inside train (likely video frames): consider thinning them.
+- Train background-only images = 0.08%: add hard negatives up to ~5-10%.
+- 23.7% of images are grayscale: colour cues unavailable.
+
+### ds3_foreign_object_debris
+- 2830 files look like augmented copies: dedupe by base_name or re-download without augmentation.
+- 9.98% of valid images are near-duplicates of train: re-split by scene/sequence or remove them from valid.
+- 9.49% of test images are near-duplicates of train: re-split by scene/sequence or remove them from test.
+- Many near-duplicate images inside train (likely video frames): consider thinning them.
+- Train background-only images = 0.76%: add hard negatives up to ~5-10%.
+- Rare classes (<50 instances): Hole. Merge, oversample, or document.
+- Classes absent from valid: Hole. Stratify the split.
+- 51.7% of images are grayscale: colour cues unavailable.
+- Almost no dark/very bright images: night/low-light generalisation cannot be evaluated with this data alone.
+

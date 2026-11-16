@@ -1,0 +1,3 @@
+class_id,class_name,total,train,valid,test,pct_small,median_area_px,median_min_side_px,median_aspect
+0,FOD,10112,8828,868,416,0.5,7584.5,71.0,0.94
+1,Runway-FOD-Detector,33,33,0,0,54.5,416.2,16.7,1.33
